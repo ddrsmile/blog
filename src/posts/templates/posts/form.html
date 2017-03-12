@@ -1,4 +1,7 @@
 {% extends "base.html" %}
+{% block head_extra %}
+{{ form.media }}
+{% endblock head_extra %}
 {% block contain %}
 <div class="col-sm-8 col-sm-offset-2">
 <h1>Form</h1>
