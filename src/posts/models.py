@@ -10,7 +10,10 @@ class PostManager(models.Manager):
         return super(PostManager, self).filter(draft=False).filter(publish__lte=timezone.now())
 
 def upload_location(instance, filename):
-    return "{folder}/{filename}".format(folder=instance.id, filename=filename)
+    PostModel = instance.__class__
+    # plusing 1 is to make the folder's name equals to instance's id.
+    new_id = PostModel.objects.order_by("id").last().id + 1
+    return "{new_id}/{filename}".format(new_id=new_id, filename=filename)
 
 class Post(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, default=1)
@@ -41,10 +44,11 @@ class Post(models.Model):
 
 def create_slug(instance, new_slug=None):
     slug = new_slug or slugify(instance.title)
-    qs = Post.objects.all()
+    qs = Post.objects.order_by("id")
     exists = qs.filter(slug=slug).exists()
     if exists:
-        new_slug = "{slug}-{num}".format(slug=slug, num=qs.count() + 1)
+        # added instance's id to the slug if the slug is existing.
+        new_slug = "{slug}-{num}".format(slug=slug, num=qs.last().id + 1)
         return create_slug(instance=instance, new_slug=new_slug)
     return slug
 
