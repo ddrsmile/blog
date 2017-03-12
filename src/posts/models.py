@@ -4,6 +4,17 @@ from django.core.urlresolvers import reverse
 from django.db.models.signals import pre_save
 from django.utils.text import slugify
 from django.utils import timezone
+from django.utils.safestring import mark_safe
+
+from markdown_deux import markdown
+
+from markdown import markdown
+from markdown.extensions import Extension
+
+class EscapeHtml(Extension):
+    def extendMarkdown(self, md, md_globals):
+        del md.preprocessors['html_block']
+        del md.inlinePatterns['html']
 
 class PostManager(models.Manager):
     def active(self, *args, **kwargs):
@@ -38,6 +49,12 @@ class Post(models.Model):
 
     def get_abs_url(self):
         return reverse('posts:detail', kwargs={'slug': self.slug})
+
+    def get_markdown(self):
+        extensions = [EscapeHtml(), 'markdown.extensions.nl2br', 'markdown.extensions.fenced_code']
+        content = self.content
+        marked_content = markdown(content, extensions=extensions)
+        return mark_safe(marked_content)
 
     class Meta:
         ordering = ['-timestamp', '-updated']

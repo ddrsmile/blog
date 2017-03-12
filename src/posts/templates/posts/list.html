@@ -10,7 +10,7 @@
         {% for post in posts %}
         <div class="row">
             <div class="col-sm-12">
-                <div class="thumbnail">
+                <div class="thumbnail content-item">
                     {% if post.image %}
                         <img src="{{ post.image.url }}" class="img-responsive"/>
                     {% endif %}
@@ -20,7 +20,7 @@
                             <small>{{ post.publish }}</small>
                         </h3>
                         {% if post.user.get_full_name %}<p>Author: {{ post.user.get_full_name }}</p>{% endif %}
-                        <p class="content-markdown">{{ post.content | truncatechars:120 }}</p>
+                        {{ post.get_markdown | truncatechars_html:120 }}
                         <p><a href="{{ post.get_abs_url }}" class="btn btn-primary" role="button">View</a></p>
                     </div>
                 </div>
