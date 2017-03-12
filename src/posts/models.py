@@ -6,15 +6,16 @@ from django.utils.text import slugify
 from django.utils import timezone
 from django.utils.safestring import mark_safe
 
-from markdown_deux import markdown
+from markdown2 import markdown
+#from markdown_deux import markdown
 
-from markdown import markdown
-from markdown.extensions import Extension
+#from markdown import markdown
+#from markdown.extensions import Extension
 
-class EscapeHtml(Extension):
-    def extendMarkdown(self, md, md_globals):
-        del md.preprocessors['html_block']
-        del md.inlinePatterns['html']
+#class EscapeHtml(Extension):
+#    def extendMarkdown(self, md, md_globals):
+#        del md.preprocessors['html_block']
+#        del md.inlinePatterns['html']
 
 class PostManager(models.Manager):
     def active(self, *args, **kwargs):
@@ -51,9 +52,11 @@ class Post(models.Model):
         return reverse('posts:detail', kwargs={'slug': self.slug})
 
     def get_markdown(self):
-        extensions = [EscapeHtml(), 'markdown.extensions.nl2br', 'markdown.extensions.fenced_code']
+        #extensions = [EscapeHtml(), 'markdown.extensions.nl2br', 'markdown.extensions.fenced_code']
+        extras = ["code-friendly", "fenced-code-blocks"]
         content = self.content
-        marked_content = markdown(content, extensions=extensions)
+        #marked_content = markdown(content, extensions=extensions)
+        marked_content = markdown(content, extras=extras)
         return mark_safe(marked_content)
 
     class Meta:
