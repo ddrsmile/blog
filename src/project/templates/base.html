@@ -26,5 +26,15 @@
         {# Base javascript #}
         <script type="text/javascript" src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/marked.min.js' %}"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $(".content-markdown").each(function(){
+                    var content = $(this).text().trim();
+                    var markedContent = marked(content);
+                    $(this).html(markedContent);
+                });
+            })
+        </script>
     </body>
 </html>

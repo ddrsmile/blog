@@ -6,6 +6,8 @@
     {% endif %}
     <h1>{{ post.title }} <small>{{ post.publish }}</small></h1>
     {% if post.user.get_full_name %}<p>Author: {{ post.user.get_full_name }}</p>{% endif %}
-    {{ post.content }}<br/>
+    <div class="col-sm-12 content-markdown">
+    {{ post.content }}
+    </div>
 <div>
 {% endblock contain %}
