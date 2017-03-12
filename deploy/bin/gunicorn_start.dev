@@ -1,0 +1,30 @@
+#!/bin/bash
+
+NAME=blog.new
+ROOT=/Users/Joey/webapps/${NAME}
+BINDIR=${ROOT}/deploy/dev/bin
+DJANGODIR=${ROOT}/src
+DEPLOYDIR=${ROOT}/deploy
+SOCKFILE=${DEPLOYDIR}/run/gunicorn_${NAME}.sock
+USER=Joey
+GROUP=staff
+NUM_WORKERS=3
+DJANGO_SETTINGS_MODULE=project.settings.dev
+DJANGO_WSGI_MODULE=project.wsgi
+
+
+cd $DEPLOYDIR
+source ${DEPLOYDIR}/env/bin/activate
+export DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE
+export PYTHONPATH=$DJANGODIR:$PYTHONPATH
+
+RUNDIR=$(dirname $SOCKFILE)
+test -d $RUNDIR || mkdir -p $RUNDIR
+
+exec ${DEPLOYDIR}/env/bin/gunicorn ${DJANGO_WSGI_MODULE}:application \
+    --name $NAME \
+    --workers $NUM_WORKERS \
+    --user=$USER  --group=$GROUP \
+    --bind=unix:$SOCKFILE \
+    --log-level=debug \
+    --log-file=-
