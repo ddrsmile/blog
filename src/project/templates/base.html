@@ -13,14 +13,14 @@
         {# Base stylesheets #}
         <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/project.css' %}">
+        {% block head_extra %}{% endblock head_extra %}
     </head>
     <body>
         {% if messages %}
         {% include 'includes/_messages.html' %}
         {% endif %}
         <div class='container'>
-            {% block contain %}
-            {% endblock contain %}
+            {% block contain %}{% endblock contain %}
         </div>
 
         {# Base javascript #}
