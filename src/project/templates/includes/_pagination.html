@@ -2,16 +2,16 @@
     <div class="col-sm-8 col-sm-offset-2">
         <div class="pagination">
             <span class="step-links">
-                {% if posts.has_previous %}
-                    <a href="?page={{ posts.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">previous</a>
+                {% if blogs.has_previous %}
+                    <a href="?page={{ blogs.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">previous</a>
                 {% endif %}
 
                 <span class="current">
-                    Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
+                    Page {{ blogs.number }} of {{ blogs.paginator.num_pages }}.
                 </span>
 
-                {% if posts.has_next %}
-                    <a href="?page={{ posts.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">next</a>
+                {% if blogs.has_next %}
+                    <a href="?page={{ blogs.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">next</a>
                 {% endif %}
             </span>
         </div>

@@ -12,27 +12,27 @@
         <h1>{{ title }} is working!</h1>
         <form method="GET" action="" class="search-form">
             <div class="input-group">
-                <input class="form-control" type="text" name="q" placeholder="Search post..."/>
+                <input class="form-control" type="text" name="q" placeholder="Search blog..."/>
                 <span class="input-group-btn">
                     <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
                 </span>
             </div>
         </form>
-        {% for post in posts %}
+        {% for blog in blogs %}
         <div class="row">
             <div class="col-sm-12">
                 <div class="thumbnail content-item">
-                    {% if post.image %}
-                        <img src="{{ post.image.url }}" class="img-responsive"/>
+                    {% if blog.image %}
+                        <img src="{{ blog.image.url }}" class="img-responsive"/>
                     {% endif %}
                     <div class="cpation">
                         <h3>
-                            <a href="{{ post.get_abs_url }}">{{ post.title }}</a>
-                            <small>{{ post.publish }}</small>
+                            <a href="{{ blog.get_abs_url }}">{{ blog.title }}</a>
+                            <small>{{ blog.publish }}</small>
                         </h3>
-                        {% if post.user.get_full_name %}<p>Author: {{ post.user.get_full_name }}</p>{% endif %}
-                        {{ post.get_markdown | truncatechars_html:120 }}
-                        <p><a href="{{ post.get_abs_url }}" class="btn btn-primary" role="button">View</a></p>
+                        {% if blog.user.get_full_name %}<p>Author: {{ blog.user.get_full_name }}</p>{% endif %}
+                        {{ blog.get_markdown | truncatechars_html:120 }}
+                        <p><a href="{{ blog.get_abs_url }}" class="btn btn-primary" role="button">View</a></p>
                     </div>
                 </div>
             </div>
