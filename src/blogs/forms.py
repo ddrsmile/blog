@@ -2,13 +2,13 @@ from django import forms
 
 from pagedown.widgets import PagedownWidget
 
-from .models import Post
+from .models import Blog
 
-class PostForm(forms.ModelForm):
+class BlogForm(forms.ModelForm):
     content = forms.CharField(widget=PagedownWidget(show_preview=False))
     publish = forms.DateField(widget=forms.SelectDateWidget)
     class Meta:
-        model = Post
+        model = Blog
         fields = [
             'title',
             'content',
