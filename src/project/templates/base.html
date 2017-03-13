@@ -30,15 +30,18 @@
         <script type="text/javascript" src="{% static 'js/marked.min.js' %}"></script>
         <script type="text/javascript">
             $(document).ready(function() {
+                /*
                 $(".content-markdown").each(function(){
                     var content = $(this).text();
                     var markedContent = marked(content);
                     $(this).html(markedContent);
                 });
+                */
                 $(".content-item img").each(function(){
                     $(this).addClass("img-responsive");
                 });
             })
         </script>
+        {% block js_extra %}{% endblock js_extra %}
     </body>
 </html>
